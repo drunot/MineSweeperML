@@ -15,16 +15,15 @@ class Minesweeper():
         self.height = height
         self.width = width
         self.mines = set()
-        self.revealed = []
+        self.unrevealed = height * width - mines
 
         # Create board
         self.board = []
         for i in range(self.height):
             row = []
             for j in range(self.width):
-                row.append(9)
+                row.append(-1)
             self.board.append(row)
-            self.revealed.append(row)
 
         # Initialize mines
         while len(self.mines) != mines:
@@ -32,7 +31,7 @@ class Minesweeper():
             y = random.randrange(height)
             self.mines.add((y, x))
 
-    def open_square(self, x, y):
+    def open_square(self, y, x):
         """'Presses' on a select square
 
         Args:
@@ -50,7 +49,11 @@ class Minesweeper():
                 if (i, j) in self.mines:
                     mines += 1
         self.board[y][x] = mines
+        self.unrevealed -= 1
         return True
+    
+    def is_game_won(self):
+        return self.unrevealed == 0
 
     def print_board(self):
         """Prints the board to terminal

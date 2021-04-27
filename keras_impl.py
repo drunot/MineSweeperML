@@ -69,7 +69,7 @@ max_memory_length = 100000
 
 update_after_actions = 5
 
-update_target_network = 1000
+update_target_network = 10000
 loss_function = keras.losses.Huber()
 
 # %%
